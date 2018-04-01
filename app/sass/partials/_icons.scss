@@ -1,0 +1,73 @@
+@at-root {
+  // Import the fonts
+  @font-face {
+    font-family: 'icomoon';
+    src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'), '#{$icon-font-path}#{$icon-font-name}.eot'));
+    src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix'), '#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
+         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff2'), '#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
+         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff'), '#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
+         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.ttf'), '#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
+         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}'), '#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
+  }
+}
+
+// Catchall baseclass
+.im {
+  position: relative;
+  display: inline-block;
+  font-family: 'icomoon';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+}
+
+.icon-text{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 8px;
+  font-family: $font-family-base;
+}
+$icons: (
+  'key':            e900,
+  'lock':           e901,
+  'arrow-up':       e902,
+  'arrow-right':    e903,
+  'shipping':       e904,
+  'headphones':     e905,
+  'airplane':       e906,
+  'quote-right':    e907,
+  'quote-left':     e908,
+  'ship':           e909,
+  'phone':          e910,
+  'search':         e911,
+  'arrow-left':     e912,
+  'arrow-down':     e913,
+  'truck-running':  e914,
+  'truck-moving':   e915,
+  'shipping-crane': e916,
+  'packaging-box':  e917,
+  'send-message':   e918,
+  'door-to-door':   e919,
+  'truck':          e90a,
+  'google-plus':    e90b,
+  'twitter':        e90c,
+  'facebook-f':     e90d,
+  'envelope':       e90e,
+  'clock':          e90f,
+  'services':       e91a,
+  'truck-load':     e91b
+
+  );
+
+@each $icon in $icons {
+  $key: nth($icon, 1);
+  $value: nth($icon, 2);
+  .im-#{$key} {
+    &:before{
+      content: unquote("\"\\#{$value}\"");
+    }
+  }
+}

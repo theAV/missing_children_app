@@ -1,0 +1,25 @@
+@include font-face(SourceSansPro-Regular, #{$font-path}/SourceSansPro-Regular, 400, normal, eot woff2 woff ttf svg);
+@include font-face(SourceSansPro-SemiBold, #{$font-path}/SourceSansPro-SemiBold, 600, normal, eot woff2 woff ttf svg);
+@include font-face(SourceSansPro-Bold, #{$font-path}/SourceSansPro-Bold, 700, normal, eot woff2 woff ttf svg);
+
+
+@mixin Regular(){
+	font-family: 'SourceSansPro-Regular';
+}
+
+@mixin Medium(){
+	font-family: 'SourceSansPro-SemiBold';
+}
+@mixin Bold(){
+	font-family: 'SourceSansPro-Bold';
+}
+
+.regular{
+	@include Regular();
+}
+.medium{
+	@include Medium();
+}
+.bold{
+	@include Bold();
+}
