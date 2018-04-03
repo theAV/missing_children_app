@@ -17,14 +17,23 @@
 	function signupController($element, $rootScope, $state, $transitions, $http) {
 		var vm = this;
 		////////////////
-        vm.text = "signup"
+		vm.data = {
+			'firstname': 'abhineet',
+			'lastname': '',
+			'email': 'abhineet.vispute@gmail.com',
+			'pin': '123456',
+			'mobile': '9893189689',
+			'state': 'mp',
+			'address': 'address',
+			'password':'12345678'
+		};
 		vm.submit_user = function() {
-			$http({
-				method : "GET",
-				url :'users'
-			}).then(function(res) {
+			$http.post(
+				'register',
+				vm.data			
+			).then(function(res) {
 				console.log(res);
-			},function myError(response) {
+			},function (response) {
 				console.log(response);
 			})
 		}

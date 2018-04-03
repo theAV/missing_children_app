@@ -52,6 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['users'] = 'user';
+$route['register'] = 'user/store_users';
 $route['(:any)'] = 'home'; //this url passes a parameter
 $route['(:any)/(:any)'] = 'home'; //this one passes 2 parameters

@@ -17,9 +17,9 @@
 	angular.module('MCWA').config(Config);
 	angular.module('MCWA').run(Run);
 
-	Config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$ocLazyLoadProvider'];
+	Config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$ocLazyLoadProvider', '$httpProvider'];
 
-	function Config($stateProvider, $urlRouterProvider, $locationProvider, $ocLazyLoadProvider) {
+	function Config($stateProvider, $urlRouterProvider, $locationProvider, $ocLazyLoadProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/');
 		$stateProvider
 			.state('root', {
@@ -92,6 +92,8 @@
 
 			})
 
+			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+			// $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 		// use the HTML5 History API
 		$locationProvider.html5Mode(true)
 	}
