@@ -3,7 +3,7 @@
 	/**
 	 * MCWA - Missing Children Web App
 	 */
-	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize']);
+	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize', 'ngMessages', 'ui.bootstrap']);
 
 	const path = base_url + 'app/partials/';
 	const component_path = base_url + 'app/components/';
@@ -26,7 +26,7 @@
 				url: "/",
 				views: {
 					'@': {
-						template: '<header-component></header-component><main ui-view="content" class="container"></main>',
+						template: '<header-component></header-component><main ui-view="content"></main><footer-component></footer-component>',
 					},
 					'content@root': {
 						templateUrl: path + 'home.html'
@@ -39,7 +39,8 @@
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
-								component_path+'headerComponent/headerComponent.js'
+								component_path+'headerComponent/headerComponent.js',
+								component_path+'footerComponent/footerComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -93,7 +94,7 @@
 			})
 
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-			// $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+			$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 		// use the HTML5 History API
 		$locationProvider.html5Mode(true)
 	}

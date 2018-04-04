@@ -21,6 +21,7 @@ class User extends CI_Controller {
                 
                 //field variables
                 $firstname,
+                $lastname,
                 $email,
                 $password,
                 $encrypted_pssword,
@@ -29,7 +30,7 @@ class User extends CI_Controller {
                 $state,
                 $pin;          
                 
-                $lastname = '';
+                
 
                 if(isset($client_data->firstname) && $client_data->firstname != '')
                 {
@@ -41,6 +42,15 @@ class User extends CI_Controller {
                 else
                 {
                         $errors['firstname'] = 'First Name is required';
+                }
+
+                if(isset($client_data->lastname) && $client_data->firstname != '')
+                {
+                        $lastname = $client_data->lastname;
+                }
+                else
+                {
+                        $lastname = '';
                 }
 
                 // validate email
@@ -60,7 +70,7 @@ class User extends CI_Controller {
                         $encrypted_pssword = md5($password);
                         $password_legn = strlen((string) $client_data->password);
                         if($password_legn != 8){
-                                $errors['password'] = 'Password is not valid. Passwords must be 8 characters long';
+                                $errors['password'] = 'Password is not valid. Password must be 8 characters long';
                         }
                 }
                 else{
@@ -102,7 +112,7 @@ class User extends CI_Controller {
                 if( isset($client_data->pin) && $client_data->pin != ''){
                         $pin = $client_data->pin;
                         if(!preg_match('/^\d{6}$/', $pin)){
-                                $errors['pin'] = 'Pin code is not valid. Pin code should be contain 6 characters/Numbers.';
+                                $errors['pin'] = 'Pin code is not valid. Pin code should be contain 6 Numbers.';
                         }
                 }
                 else{
@@ -119,28 +129,50 @@ class User extends CI_Controller {
                         $data = array(
                                 'firstname' => $firstname,
                                 'lastname' => $lastname,
-                                'email' => $email,
+                                'email' =>  $email,
                                 'password' => $encrypted_pssword,
                                 'mobile' => $mobile,
                                 'address' => $address,
                                 'state' => $state,
                                 'pin' => $pin
                         );
-                        $this->db->trans_start();
-
-                        $this->db->insert('users', $data);
-
-                        $this->db->trans_complete();
-                        if ($this->db->trans_status() === FALSE)
-                        {
-                                $response['error'] = "Unknown error.";
-                                $response['response_code'] =  500;
-                                echo json_encode($response);
+                       
+                        $query = $this->db->query("SELECT * FROM users;");
+                        
+                        $queryResult = json_encode($query->result());
+                        if (is_array($queryResult) || is_object($queryResult)){
+                                
+                                foreach ($queryResult as $key  => $value) {
+                                        
+                                        echo($value);
+                                }
                         }else{
-                                $response['message'] = "New record created successfully";
-                                $response['response_code'] =  200;
-                                echo json_encode($response);
-                        }                        
+                                echo($queryResult);  
+                        }
+                        // if($queryResult['email'] == $email){
+                        //         $response['error'] = "true";
+                        //         $response['message'] = 'Email already exists.';
+                        //         $response['response_code'] =  500;
+                        //         echo json_encode($response);
+                        // }else{
+                        //         $this->db->trans_start();
+
+                        //         $this->db->insert('users', $data);
+
+                        //         $this->db->trans_complete();
+
+                        //         if ($this->db->trans_status() === FALSE)
+                        //         {
+                        //                 $response['error'] = "Unknown error.";
+                        //                 $response['response_code'] =  500;
+                        //                 echo json_encode($response);
+                        //         }else{                                
+                        //                 $response['message'] = 'OK';
+                        //                 $response['response_code'] =  200;
+                        //                 echo json_encode($response);
+                        //         }                        
+                        // }
+
                 }
         }
 }
