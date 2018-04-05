@@ -3,7 +3,7 @@
 	/**
 	 * MCWA - Missing Children Web App
 	 */
-	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize', 'ngMessages', 'ui.bootstrap']);
+	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize', 'ngMessages', 'ui.bootstrap', 'ngCookies']);
 
 	const path = base_url + 'app/partials/';
 	const component_path = base_url + 'app/components/';
@@ -30,17 +30,17 @@
 					},
 					'content@root': {
 						templateUrl: path + 'home.html'
-                    }
-                },
-                data: {
-                   title: 'root'
-                },
+					}
+				},
+				data: {
+					title: 'root'
+				},
 				resolve: {
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
-								component_path+'headerComponent/headerComponent.js',
-								component_path+'footerComponent/footerComponent.js'
+								component_path + 'headerComponent/headerComponent.js',
+								component_path + 'footerComponent/footerComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -48,7 +48,12 @@
 						}, function error(err) {
 							return err;
 						});
-					}]
+					}],
+					userData: function ($cookies) {
+						var cookies = $cookies.get('userSessionData');
+						var data = 'abhi';
+						return data;
+					}
 				}
 			})
 			.state('signup', {
@@ -59,14 +64,14 @@
 						template: '<signup-component></signup-component>'
 					}
 				},
-                data: {
-                    title: 'Sign Up'
-                },
-                resolve: {
+				data: {
+					title: 'Sign Up'
+				},
+				resolve: {
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
-								component_path+'signupComponent/signupComponent.js'
+								component_path + 'signupComponent/signupComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -81,20 +86,50 @@
 				url: 'login',
 				views: {
 					'content@root': {
-						template: '<p>login</p>',
-						controller: function () {
-							console.log('in login')
+						// template: '<login-component></login-component>'
+						component:'loginComponent',
+						resolve:{
+							asda: function () {
+								// var cookies = $cookies.get('userSessionData');
+								return  'abhi';
+							}
 						}
 					}
-                },
-                data: {
-                    title: 'login Up'
-                }
+				},
+				// bindings: { Binding: 'userlist' },
+				data: {
+					title: 'Log In'
+				},
+				resolve: {
+					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load({
+							files: [
+								component_path + 'loginComponent/loginComponent.js'
+							],
+							cache: true
+						}).then(function success(args) {
+							return args;
+						}, function error(err) {
+							return err;
+						});
+					}]
+				}
 
+			}).state('dashboard', {
+				parent: 'root',
+				url: 'dashboard',
+				views: {
+					'content@root': {
+						template: '<login-component></login-component>'
+					}
+				},
+				data: {
+					title: 'Dashboard'
+				}
 			})
 
-			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-			$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+		$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 		// use the HTML5 History API
 		$locationProvider.html5Mode(true)
 	}
@@ -104,6 +139,10 @@
 	function Run($rootScope, Constantconfig) {
 		$rootScope.appName = Constantconfig.appName;
 		$rootScope.appVersion = Constantconfig.appVersion;
+
+		$rootScope.closeAlert = function (index) {
+			$rootScope.alerts.splice(index, 1);
+		};
 	}
 
 })();

@@ -10,8 +10,8 @@
 			controller: HeaderController,
 			controllerAs: 'vm',
 			bindings: {
-				Binding: '=',
-			},
+				userData: '<'
+			}
 		});
 
 	HeaderController.$inject = ['$scope', '$element', '$rootScope', '$state', '$transitions'];
@@ -20,7 +20,7 @@
 		var vm = this;
 		////////////////
 		vm.logo = "MCWA"
-
+		// console.log(vm.userData);
 		vm.$onInit = function () {};
 		vm.$onChanges = function (changesObj) {};
 		vm.$onDestroy = function () {};

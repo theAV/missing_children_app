@@ -53,5 +53,6 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'user/store_users';
+$route['get_login'] = 'login/login_user';
 $route['(:any)'] = 'home'; //this url passes a parameter
 $route['(:any)/(:any)'] = 'home'; //this one passes 2 parameters

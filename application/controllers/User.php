@@ -137,41 +137,29 @@ class User extends CI_Controller {
                                 'pin' => $pin
                         );
                        
-                        $query = $this->db->query("SELECT * FROM users;");
-                        
-                        $queryResult = json_encode($query->result());
-                        if (is_array($queryResult) || is_object($queryResult)){
-                                
-                                foreach ($queryResult as $key  => $value) {
-                                        
-                                        echo($value);
-                                }
+                        $query = $this->db->query("SELECT * FROM users where email='$email';");
+                        $row = $query->row();
+                        if (isset($row))
+                        {
+                                $response['message'] = 'Email already exists.';
+                                $response['response_code'] =  500;
+                                echo json_encode($response);
                         }else{
-                                echo($queryResult);  
+                                $this->db->trans_start();
+                                $this->db->insert('users', $data);
+                                $this->db->trans_complete();
+
+                                if ($this->db->trans_status() === FALSE)
+                                {
+                                        $response['error'] = "Unknown error.";
+                                        $response['response_code'] =  500;
+                                        echo json_encode($response);
+                                }else{                                
+                                        $response['message'] = 'You are successfully registered';
+                                        $response['response_code'] =  200;
+                                        echo json_encode($response);
+                                }
                         }
-                        // if($queryResult['email'] == $email){
-                        //         $response['error'] = "true";
-                        //         $response['message'] = 'Email already exists.';
-                        //         $response['response_code'] =  500;
-                        //         echo json_encode($response);
-                        // }else{
-                        //         $this->db->trans_start();
-
-                        //         $this->db->insert('users', $data);
-
-                        //         $this->db->trans_complete();
-
-                        //         if ($this->db->trans_status() === FALSE)
-                        //         {
-                        //                 $response['error'] = "Unknown error.";
-                        //                 $response['response_code'] =  500;
-                        //                 echo json_encode($response);
-                        //         }else{                                
-                        //                 $response['message'] = 'OK';
-                        //                 $response['response_code'] =  200;
-                        //                 echo json_encode($response);
-                        //         }                        
-                        // }
 
                 }
         }

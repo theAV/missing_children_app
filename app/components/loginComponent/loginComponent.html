@@ -1,0 +1,40 @@
+<div class="flex-box">
+	<div class="container">
+		<div class="row">
+			<form class="col-sm-12 col-md-4 col-md-offset-4" name="vm.loginform">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h1 class="panel-title">{{vm.pageTitle}}</h1>
+					</div>
+					<div class="panel-body">
+						<div class="form-group" ng-class="{'has-error': vm.loginform.email.$touched && vm.loginform.email.$invalid}">
+							<label>Email</label>
+							<input type="text" class="form-control" ng-model="vm.loginuser.email" name="email" required="">
+							<div class="help-block" ng-messages="vm.loginform.email.$error" ng-if="vm.loginform.email.$touched && vm.loginform.email.$invalid">
+								<span ng-message="required">Field is required</span>
+							</div>
+						</div>
+						<div class="form-group" ng-class="{'has-error': vm.loginform.password.$touched && vm.loginform.password.$invalid}">
+							<label>Password</label>
+							
+							<input type="password" class="form-control" ng-model="vm.loginuser.password" ng-pattern="/^\d{8}$/" name="password" required="">
+							<div class="help-block" ng-messages="vm.loginform.password.$error" ng-if="vm.loginform.password.$touched && vm.loginform.password.$invalid">
+								<span ng-message="required">Field is required</span>
+								<div ng-message="pattern">Passwords must be 8 characters long.
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<a ui-sref="signup" class="btn btn-link btn-lg btn-block">Not Registered?</a>
+							</div>
+							<div class="col-sm-offset-4 col-sm-4">
+								<button class="btn btn-default btn-lg btn-block" ng-disabled="vm.loginform.$invalid" ng-click="vm.do_login();">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
