@@ -1,11 +1,10 @@
-
 <div class="intro-slider">
 	<div class="item" style="background-image: url('app/assets/img/slider-1.jpg');"></div>
 </div>
 <!-- Track form -->
 <div class="container mail-container">
 	<div class="row">
-		<div class="col-md-6 col-sm-3 col-md-offset-3 col-sm-offset-0">
+		<div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
 			<div class="well">
 				<form class="tracking-form">
 					<h4>Search Police Database For MISSING CHILDREN</h4>
@@ -22,7 +21,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-4 col-sm-offset-2" ng-if="!vm.isauthenticated">
 			<a ui-sref="login" class="tile text-uppercase">
 				<span>
 					<img src="app/assets/img/login.svg" alt="">
@@ -30,7 +29,7 @@
 				<h4>log in</h4>
 			</a>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4" ng-if="!vm.isauthenticated">
 			<a ui-sref="signup" class="tile text-uppercase">
 				<span>
 					<img src="app/assets/img/register.svg" alt="">
@@ -38,17 +37,22 @@
 				<h4>Register</h4>
 			</a>
 		</div>
-		<div class="col-sm-3">
-			<a href="" class="tile text-uppercase">
-				<h4>log in</h4>
+		<div class="col-sm-4 col-sm-offset-2">
+			<a ui-sref="reports" class="tile text-uppercase">
+				<span>
+					<img src="app/assets/img/dashboard.svg" alt="">
+				</span>
+				<h4>Reports</h4>
 			</a>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<a href="" class="tile text-uppercase">
-				<h4>log in</h4>
+				<span>
+					<img src="app/assets/img/missing.svg" alt="">
+				</span>
+				<h4>Missing Someone</h4>
 			</a>
 		</div>
 	</div>
 </div>
 <!--/ Track form -->
-

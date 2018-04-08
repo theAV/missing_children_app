@@ -23,31 +23,56 @@
 		$urlRouterProvider.otherwise('/');
 		$stateProvider
 			.state('root', {
-				url: "/",
 				views: {
-					'': {
-						template:'<div ui-view="header"></div><main ui-view="content"></main><div ui-view="footer"></div>',
+					controller:function(){
+
 					},
-					'content@root': {
-						templateUrl: path + 'home.html'
+					'content': {
+						abstract: true,
+						template: '<main ui-view="" class="flex-box"></main>'
 					},
-					'header@root':{
-						template: '<header-component></header-component>'
+					'header': {
+						template: '<header-component></header-component>',
+						// resolve: {
+						// 	isauthenticated: function(AuthenticationService){
+						// 		return AuthenticationService.CheckLogInStatus();
+						// 	}
+						// }
 					},
-					'footer@root':{
+					'footer': {
 						template: '<footer-component></footer-component>'
 					}
-				},
-				isAuthRequired: false,
-				data: {
-					title: 'root'
 				},
 				resolve: {
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
 								component_path + 'headerComponent/headerComponent.js',
-								component_path + 'footerComponent/footerComponent.js'
+								component_path + 'footerComponent/footerComponent.js',
+								'app/js/common.controller.js'
+							],
+							cache: true
+						}).then(function success(args) {
+							return args;
+						}, function error(err) {
+							return err;
+						});
+					}]
+				}
+			})
+			.state('/', {
+				parent: 'root',
+				url: '/',
+				component: 'homeComponent',
+				data: {
+					isAuthRequired: false,
+					title: 'Home',
+				},
+				resolve: {
+					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load({
+							files: [
+								component_path + 'homeComponent/homeComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -56,23 +81,17 @@
 							return err;
 						});
 					}],
-					userData: function ($cookies) {
-						var cookies = $cookies.get('userSessionData');
-						var data = 'abhi';
-						return data;
+					isauthenticated: function(AuthenticationService){
+						return AuthenticationService.CheckLogInStatus();
 					}
 				}
 			})
 			.state('signup', {
 				parent: 'root',
-				url: 'signup',
-				views: {
-					'content@root': {
-						template: '<signup-component></signup-component>'
-					}
-				},
-				isAuthRequired: false,
+				url: '/signup',
+				component: 'signupComponent',
 				data: {
+					isAuthRequired: false,
 					title: 'Sign Up'
 				},
 				resolve: {
@@ -91,14 +110,10 @@
 				}
 			}).state('login', {
 				parent: 'root',
-				url: 'login',
-				views: {
-					'content@root': {
-						template: '<login-component></login-component>'						
-					}
-				},
-				isAuthRequired: false,
+				url: '/login',
+				component: 'loginComponent',
 				data: {
+					isAuthRequired: false,
 					title: 'Log In'
 				},
 				resolve: {
@@ -113,19 +128,32 @@
 						}, function error(err) {
 							return err;
 						});
-					}]
-				}
-
-			}).state('dashboard', {
-				url: 'dashboard',
-				views: {
-					'content@root': {
-						template: '<login-component></login-component>'
+					}],
+					authenticat: function () {
+						return "abhi"
 					}
-				},
-				isAuthRequired: true,
+				}
+			}).state('reports', {
+				parent: 'root',
+				url: '/reports',
+				component: 'reportsComponent',
 				data: {
-					title: 'Dashboard'
+					isAuthRequired: true,
+					title: 'Reports'
+				},
+				resolve: {
+					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load({
+							files: [
+								component_path + 'reportsComponent/reportsComponent.js'
+							],
+							cache: true
+						}).then(function success(args) {
+							return args;
+						}, function error(err) {
+							return err;
+						});
+					}]
 				}
 			})
 
@@ -136,26 +164,34 @@
 		$locationProvider.html5Mode(true)
 	}
 
-	Run.$inject = ['$rootScope', 'Constantconfig', '$cookies','AuthenticationService'];
+	Run.$inject = ['$rootScope', '$state', 'Constantconfig', '$cookies', 'AuthenticationService'];
 
-	function Run($rootScope, Constantconfig, $cookies, AuthenticationService) {
+	function Run($rootScope, $state, Constantconfig, $cookies, AuthenticationService) {
 		$rootScope.appName = Constantconfig.appName;
 		$rootScope.appVersion = Constantconfig.appVersion;
+		$rootScope.loggedin = false;
 
 		$rootScope.closeAlert = function (index) {
 			$rootScope.alerts.splice(index, 1);
 		};
 
-		$rootScope.$on('$locationChangeStart', function (event, next, current) {
-			
-			var loggedIn = $rootScope.global;
-			
-			AuthenticationService.CheckLogInStatus().then(function(status){
+		if ($cookies.get('globals') === undefined) {
+			$state.go('/');
+		}
 
-			}, function(status){
-				
-			});
+
+		// $rootScope.$on('$locationChangeStart', function (event, next, current) {
+		// 	AuthenticationService.CheckLogInStatus();
+		// });
+
+		$rootScope.$on('$viewContentLoaded', function (event, next, current) {
+			var isAuthRequired = true;
+			
+			// if ($cookies.get('globals') === undefined && isAuthRequired ) {
+			// 	$state.go('/');
+			// }
 		});
+
 	}
 
 })();

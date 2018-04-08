@@ -7,12 +7,14 @@
     <base href="<?php echo base_url(); ?>">
     
     <link rel="stylesheet" href="<?php echo base_url(); ?>app/assets/css/style.css">
-    <title>Hello, world!</title>
+    <title>{{appName}}</title>
     <?php $this->load->view('global_script_var');?> 
   </head>
-  <body>
+  <body class="main-view">
     
-    <ui-view class="main-view"></ui-view>
+  <div ui-view="header"></div>
+  <div ui-view="content"></div>
+  <div ui-view="footer"></div>
 
     <div uib-alert ng-repeat="alert in alerts" close="closeAlert($index);" ng-class="'alert-' + (alert.type)" dismiss-on-timeout="5500" close="closeAlert($index)">{{alert.msg}}</div>
     <!-- Optional JavaScript -->
@@ -25,14 +27,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/oclazyload/1.1.0/ocLazyLoad.min.js"></script>
     <script src="<?php echo base_url(); ?>app/js/app.js"></script>
     <script src="<?php echo base_url(); ?>app/js/services/services.js"></script>
-    <!-- <script src="<?php echo base_url(); ?>app/components/loginComponent/loginComponent.js"></script> -->
+    <!-- <script src="<?php echo base_url(); ?>app/js/common.controller.js"></script> -->
     <script>
       // TODO add service worker code here
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-                .register('./service-worker.js')
-                .then(function() { console.log('Service Worker Registered'); });
-      }
+      // if ('serviceWorker' in navigator) {
+      //   navigator.serviceWorker
+      //           .register('./service-worker.js')
+      //           .then(function() { console.log('Service Worker Registered'); });
+      // }
     </script>
   </body>
 </html>

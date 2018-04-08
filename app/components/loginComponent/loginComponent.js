@@ -8,7 +8,7 @@
 			controller: loginController,
 			controllerAs: 'vm',
 			bindings: {
-				'userData': '<',
+				'authenticat': '<',
 			},
 		});
 
@@ -30,12 +30,10 @@
 						'type': 'active',
 						'msg': response_data.message
 					});
-					
-					
-					
+
 					AuthenticationService.SetCredentials(response_data);
-	
 					
+					$state.go('reports');
 				} else if (response_data.response_code === 500 && typeof (response_data.error) === 'object') {
 					$rootScope.alerts.push({
 						'type': 'active',
@@ -52,9 +50,15 @@
 				console.log(response);
 			})
 		};
+
+
 		
-		vm.$onInit = function(){};
-		vm.$onChanges = function (changesObj) {};
+		vm.$onInit = function(){
+			
+		}
+		vm.$onChanges = function (changesObj) {
+
+		};
 		vm.$onDestroy = function () {};
 	}
 })();

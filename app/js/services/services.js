@@ -61,18 +61,18 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
 	var services = {};
 	services.SetCredentials = SetCredentials;
 	services.CheckLogInStatus = CheckLogInStatus;
+	services.removeCredentials = removeCredentials;
 	return services;
 
 	function SetCredentials(data) {
 		var session_data = data.data;
-		
 		$rootScope.global = {
 			currentUser: {
 				userSessionID: session_data.session_id,
 				userData: session_data.usredata
 			}
 		}
-		
+
 		// $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
 		var cookieExp = new Date();
 		cookieExp.setDate(cookieExp.getDate() + 7);
@@ -82,14 +82,19 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
 	};
 
 	function CheckLogInStatus() {
-		var defer = $q.defer();
-		REST_API.XHRCallApi('GET', 'get_sesion_user').then(function (res) {
-			defer.resolve(res);
-			
-		}, function (req) {
-			defer.reject(req);
-		});
-		return defer.promise;
+		var islog;
+		if ($cookies.get('globals') === undefined) {
+			islog = false;
+		} else {
+			islog = true;
+		};
+		return islog;
+	}
+
+	function removeCredentials() {
+		console.log($cookies.get('globals'))
+		$cookies.remove("globals");
+		console.log($cookies.get('globals'))
 	}
 };
 
