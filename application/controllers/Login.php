@@ -66,9 +66,20 @@
                             'userdata' => $row
                         );
                         $this->session->set_userdata($arraydata);
+                        $dbData = $this->session->userdata()['userdata'];
+
+                        $userdata['usredata']['firstname'] = $dbData->firstname;
+                        $userdata['usredata']['lastname'] = $dbData->lastname;
+                        $userdata['usredata']['email'] = $dbData->email;
+                        $userdata['usredata']['mobile'] = $dbData->mobile;
+                        $userdata['usredata']['address'] = $dbData->address;
+                        $userdata['usredata']['state'] = $dbData->state;
+                        $userdata['usredata']['pin'] = $dbData->pin;
+                        $userdata['session_id'] = $this->session->userdata()['session_id'];
+
 
                         $response['message'] = 'Success!';
-                        $response['data'] = $this->session->userdata();
+                        $response['data'] = $userdata;
                         $response['response_code'] =  200;
                         echo json_encode($response);
                     }

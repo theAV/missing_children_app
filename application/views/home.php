@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/oclazyload/1.1.0/ocLazyLoad.min.js"></script>
     <script src="<?php echo base_url(); ?>app/js/app.js"></script>
     <script src="<?php echo base_url(); ?>app/js/services/services.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>app/components/loginComponent/loginComponent.js"></script> -->
     <script>
       // TODO add service worker code here
       if ('serviceWorker' in navigator) {

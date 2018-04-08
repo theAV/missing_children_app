@@ -1,3 +1,7 @@
+angular.module('MCWA').service('REST_API', REST_API);
+angular.module('MCWA').factory('AuthenticationService', AuthenticationService);
+angular.module('MCWA').factory('MyInterceptor', MyInterceptor);
+
 function REST_API($q, $http) {
 	return {
 		XHRCallApi: XHRCallApi
@@ -22,7 +26,6 @@ function REST_API($q, $http) {
 			}
 			return deferred.promise;
 		};
-
 		var GetMethod = function () {
 			var deferred = $q.defer();
 			$http({
@@ -52,4 +55,64 @@ function REST_API($q, $http) {
 }
 
 
-angular.module('MCWA').service('REST_API', REST_API);
+AuthenticationService.$inject = ['$q', '$http', '$cookies', '$rootScope', 'REST_API'];
+
+function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
+	var services = {};
+	services.SetCredentials = SetCredentials;
+	services.CheckLogInStatus = CheckLogInStatus;
+	return services;
+
+	function SetCredentials(data) {
+		var session_data = data.data;
+		
+		$rootScope.global = {
+			currentUser: {
+				userSessionID: session_data.session_id,
+				userData: session_data.usredata
+			}
+		}
+		
+		// $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
+		var cookieExp = new Date();
+		cookieExp.setDate(cookieExp.getDate() + 7);
+		$cookies.putObject('globals', $rootScope.global, {
+			expires: cookieExp
+		});
+	};
+
+	function CheckLogInStatus() {
+		var defer = $q.defer();
+		REST_API.XHRCallApi('GET', 'get_sesion_user').then(function (res) {
+			defer.resolve(res);
+			
+		}, function (req) {
+			defer.reject(req);
+		});
+		return defer.promise;
+	}
+};
+
+function MyInterceptor() {
+	return {
+		request: function (config) {
+			//   console.log(config)
+			return config;
+		},
+
+		requestError: function (config) {
+			//   console.log(config)
+			return config;
+		},
+
+		response: function (res) {
+			//   console.log(res)
+			return res;
+		},
+
+		responseError: function (res) {
+			//   console.log(res)
+			return res;
+		}
+	}
+}
