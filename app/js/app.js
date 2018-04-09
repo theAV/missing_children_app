@@ -23,56 +23,43 @@
 		$urlRouterProvider.otherwise('/');
 		$stateProvider
 			.state('root', {
+				// url: '/',
 				views: {
-					controller:function(){
-
+					'@': {
+						template: '<div ui-view="header" class="component"></div><div class="component" ui-view></div><div class="component" ui-view="footer"></div>',
+						controller: 'commonController',
+						controllerAs: 'vm'
 					},
-					'content': {
-						abstract: true,
-						template: '<main ui-view="" class="flex-box"></main>'
+					'header@root': {
+						template: '<header-component isuserauth="vm.rootAtuthenticated"></header-component>',
+						controller: 'commonController',
+						controllerAs: 'vm',
+						resolve: {
+							isuserauth: function () {
+								return vm.rootAtuthenticated;
+							}
+						}
 					},
-					'header': {
-						template: '<header-component></header-component>',
-						// resolve: {
-						// 	isauthenticated: function(AuthenticationService){
-						// 		return AuthenticationService.CheckLogInStatus();
-						// 	}
-						// }
-					},
-					'footer': {
-						template: '<footer-component></footer-component>'
+					'footer@root': {
+						template: '<footer-component></footer-component>',
+						controller: 'commonController',
+						controllerAs: 'vm'
 					}
 				},
-				resolve: {
-					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-						return $ocLazyLoad.load({
-							files: [
-								component_path + 'headerComponent/headerComponent.js',
-								component_path + 'footerComponent/footerComponent.js',
-								'app/js/common.controller.js'
-							],
-							cache: true
-						}).then(function success(args) {
-							return args;
-						}, function error(err) {
-							return err;
-						});
-					}]
-				}
 			})
-			.state('/', {
+			.state('login', {
 				parent: 'root',
-				url: '/',
-				component: 'homeComponent',
+				url: '/login',
+				component: 'loginComponent',
 				data: {
 					isAuthRequired: false,
-					title: 'Home',
+					title: 'Log In'
 				},
 				resolve: {
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
-								component_path + 'homeComponent/homeComponent.js'
+								component_path + 'loginComponent/loginComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -81,8 +68,8 @@
 							return err;
 						});
 					}],
-					isauthenticated: function(AuthenticationService){
-						return AuthenticationService.CheckLogInStatus();
+					authenticat: function () {
+						return "abhi"
 					}
 				}
 			})
@@ -108,19 +95,20 @@
 						});
 					}]
 				}
-			}).state('login', {
+			})
+			.state('home', {
 				parent: 'root',
-				url: '/login',
-				component: 'loginComponent',
+				url: '/',
+				component: 'homeComponent',
 				data: {
 					isAuthRequired: false,
-					title: 'Log In'
+					title: 'Home',
 				},
 				resolve: {
 					loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
 						return $ocLazyLoad.load({
 							files: [
-								component_path + 'loginComponent/loginComponent.js'
+								component_path + 'homeComponent/homeComponent.js'
 							],
 							cache: true
 						}).then(function success(args) {
@@ -133,7 +121,8 @@
 						return "abhi"
 					}
 				}
-			}).state('reports', {
+			})
+			.state('reports', {
 				parent: 'root',
 				url: '/reports',
 				component: 'reportsComponent',
@@ -175,22 +164,22 @@
 			$rootScope.alerts.splice(index, 1);
 		};
 
-		if ($cookies.get('globals') === undefined) {
-			$state.go('/');
-		}
+		// if ($cookies.get('globals') === undefined) {
+		// 	$state.go('/');
+		// }
 
 
-		// $rootScope.$on('$locationChangeStart', function (event, next, current) {
-		// 	AuthenticationService.CheckLogInStatus();
-		// });
-
-		$rootScope.$on('$viewContentLoaded', function (event, next, current) {
-			var isAuthRequired = true;
-			
-			// if ($cookies.get('globals') === undefined && isAuthRequired ) {
-			// 	$state.go('/');
-			// }
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+			AuthenticationService.CheckLogInStatus();
 		});
+
+		// $rootScope.$on('$viewContentLoaded', function (event, next, current) {
+		// 	var isAuthRequired = true;
+
+		// 	// if ($cookies.get('globals') === undefined && isAuthRequired ) {
+		// 	// 	$state.go('/');
+		// 	// }
+		// });
 
 	}
 

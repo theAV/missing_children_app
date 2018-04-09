@@ -92,9 +92,7 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
 	}
 
 	function removeCredentials() {
-		console.log($cookies.get('globals'))
 		$cookies.remove("globals");
-		console.log($cookies.get('globals'))
 	}
 };
 

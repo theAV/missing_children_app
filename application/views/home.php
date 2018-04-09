@@ -10,11 +10,9 @@
     <title>{{appName}}</title>
     <?php $this->load->view('global_script_var');?> 
   </head>
-  <body class="main-view">
+  <body>
     
-  <div ui-view="header"></div>
-  <div ui-view="content"></div>
-  <div ui-view="footer"></div>
+    <ui-view class="main-view"></ui-view>
 
     <div uib-alert ng-repeat="alert in alerts" close="closeAlert($index);" ng-class="'alert-' + (alert.type)" dismiss-on-timeout="5500" close="closeAlert($index)">{{alert.msg}}</div>
     <!-- Optional JavaScript -->
@@ -27,7 +25,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/oclazyload/1.1.0/ocLazyLoad.min.js"></script>
     <script src="<?php echo base_url(); ?>app/js/app.js"></script>
     <script src="<?php echo base_url(); ?>app/js/services/services.js"></script>
-    <!-- <script src="<?php echo base_url(); ?>app/js/common.controller.js"></script> -->
+    <script src="<?php echo base_url(); ?>app/js/common.controller.js"></script>
+    <script src="<?php echo base_url(); ?>app/components/headerComponent/headerComponent.js"></script>
+    <script src="<?php echo base_url(); ?>app/components/footerComponent/footerComponent.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>app/components/homeComponent/homeComponent.js"></script> -->
     <script>
       // TODO add service worker code here
       // if ('serviceWorker' in navigator) {

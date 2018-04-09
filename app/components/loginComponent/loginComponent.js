@@ -7,19 +7,21 @@
 			templateUrl: 'app/components/loginComponent/loginComponent.html',
 			controller: loginController,
 			controllerAs: 'vm',
+			restrict:'commonController',
 			bindings: {
 				'authenticat': '<',
 			},
 		});
 
-	loginController.$inject = ['$element', '$rootScope', '$state', '$http', 'REST_API', '$timeout', 'AuthenticationService'];
+	loginController.$inject = ['$element', '$rootScope', '$state', '$http', 'REST_API', '$timeout', 'AuthenticationService', '$scope'];
 
-	function loginController($element, $rootScope, $state, $http, REST_API, $timeout, AuthenticationService) {
+	function loginController($element, $rootScope, $state, $http, REST_API, $timeout, AuthenticationService, $scope) {
 		var vm = this;
 		
 		vm.pageTitle = $state.$current.data.title;
 		vm.loginuser = {};
 		$rootScope.alerts = [];
+		// console.log(rootAtuthenticated);
 		
 		vm.do_login = function () {
 			REST_API.XHRCallApi('POST', 'get_login', vm.loginuser).then(function (res) {
@@ -30,9 +32,10 @@
 						'type': 'active',
 						'msg': response_data.message
 					});
-
 					AuthenticationService.SetCredentials(response_data);
 					
+					$rootScope.rootAtuthenticated = true;
+						
 					$state.go('reports');
 				} else if (response_data.response_code === 500 && typeof (response_data.error) === 'object') {
 					$rootScope.alerts.push({

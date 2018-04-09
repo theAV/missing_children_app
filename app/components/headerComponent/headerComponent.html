@@ -12,7 +12,7 @@
 			<a ui-sref="/" class="navbar-brand bold">
 				<img src="app/assets/img/missing-children.svg" alt=""> 
 				<span>
-					<span>Missing Children</span>
+					<span>Missing Children </span>
 					<span class="small">Trake my Child</span>
 				</span>
 			</a>
@@ -20,16 +20,16 @@
 		<div class="collapse navbar-collapse" id="navigation">
 			<ul class="nav navbar-nav navbar-right">
 				
-				<li ui-sref-active="active"  xng-if="!vm.isauthenticated">
+				<li ui-sref-active="active"  ng-if="!vm.isuserauth">
 					<a ui-sref="login">Login</a>
 				</li>
-				<li ui-sref-active="active"  xng-if="!vm.isauthenticated">
+				<li ui-sref-active="active"  ng-if="!vm.isuserauth">
 					<a ui-sref="signup">Signup</a>
 				</li>
 				<li>
 					<a>Contact Us</a>
 				</li>
-				<li xng-if="vm.isauthenticated">
+				<li ng-if="vm.isuserauth">
 					<a href="javascript:void(0);" ng-click="vm.logout();">Log Out</a>
 				</li>
 			</ul>

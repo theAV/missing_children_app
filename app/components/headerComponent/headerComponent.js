@@ -10,7 +10,7 @@
 			controller: HeaderController,
 			controllerAs: 'vm',
 			bindings: {
-				isauthenticated: '=',
+				isuserauth: '=',
 			}
 		});
 
@@ -21,7 +21,7 @@
 		////////////////
 		vm.logo = "MCWA"
 		$rootScope.alerts = [];
-		
+
 		var logout = function(){
 			REST_API.XHRCallApi('POST', 'get_logout' ).then(function(res){
 				var response_data = res.data;
@@ -32,7 +32,7 @@
 					});
 					$rootScope.alerts = [];
 					AuthenticationService.removeCredentials()
-					$state.go('/');
+					$state.go('home');
 				}
 				
 			}, function(res){
@@ -41,11 +41,9 @@
 			
 		}
 		
-		// $scope.$on('authcheck', function(event, userAuthData) {
-		// 	vm.authenticated = userAuthData;
-		// });
+	
 		vm.$onInit = function(){
-			console.log(vm.isauthenticated)
+			console.log(vm.isuserauth)
 			vm.logout = logout;
 			
 		};
