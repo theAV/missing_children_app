@@ -21,8 +21,6 @@
 		vm.pageTitle = $state.$current.data.title;
 		vm.loginuser = {};
 		$rootScope.alerts = [];
-		// console.log(rootAtuthenticated);
-		
 		vm.do_login = function () {
 			REST_API.XHRCallApi('POST', 'get_login', vm.loginuser).then(function (res) {
 				var response_data = res.data;
@@ -35,8 +33,9 @@
 					AuthenticationService.SetCredentials(response_data);
 					
 					$rootScope.rootAtuthenticated = true;
-						
-					$state.go('reports');
+					
+					window.location = base_url;
+					// $state.go('reports');
 				} else if (response_data.response_code === 500 && typeof (response_data.error) === 'object') {
 					$rootScope.alerts.push({
 						'type': 'active',
@@ -53,8 +52,6 @@
 				console.log(response);
 			})
 		};
-
-
 		
 		vm.$onInit = function(){
 			

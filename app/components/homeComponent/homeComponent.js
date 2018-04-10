@@ -19,11 +19,9 @@
 
 		vm.pageTitle = $state.$current.data.title;
 		
-		// $scope.$on('authcheck', function(event, userAuthData) {
-		// 	vm.authenticated = userAuthData;
-		// });
 		
 		vm.$onInit = function () {
+			
 		};
 		vm.$onChanges = function (changesObj) {
 

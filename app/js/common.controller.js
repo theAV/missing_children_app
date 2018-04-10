@@ -8,13 +8,11 @@
 
 	function commonController($scope, $rootScope, $state, $transitions, REST_API, $cookies, AuthenticationService){
 		var vm = this;
-		alert(0)
-		if ($cookies.get('globals') === undefined) {
-			vm.rootAtuthenticated = false;
-			$rootScope.rootAtuthenticated = false;
-		}else{
-			vm.rootAtuthenticated = true;
-			$rootScope.rootAtuthenticated = true;
+		vm.userobj = {};
+		vm.userobj.isAuthenticated = false;
+		if(AuthenticationService.CheckLogInStatus()){
+			vm.userobj.isAuthenticated = true;
+			vm.userobj.userinfo = JSON.parse($cookies.get('globals')).currentUser.userData;
 		}
 		
     }

@@ -18,11 +18,8 @@
 
 	function ReportController($scope, $element, $rootScope, $state, $transitions) {
 		var vm = this;
-		////////////////
-		vm.logo = "MCWA"
-		// console.log(vm.userData);
+		
 		vm.$onInit = function(){
-			
 			
 		};
 		vm.$onChanges = function (changesObj) {};

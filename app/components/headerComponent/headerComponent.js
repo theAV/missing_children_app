@@ -10,7 +10,7 @@
 			controller: HeaderController,
 			controllerAs: 'vm',
 			bindings: {
-				isuserauth: '=',
+				userobj: '=',
 			}
 		});
 
@@ -20,35 +20,38 @@
 		var vm = this;
 		////////////////
 		vm.logo = "MCWA"
+		vm.isuserauth = false;
+		vm.userinfo;
 		$rootScope.alerts = [];
 
-		var logout = function(){
-			REST_API.XHRCallApi('POST', 'get_logout' ).then(function(res){
+		var logout = function () {
+			REST_API.XHRCallApi('POST', 'get_logout').then(function (res) {
 				var response_data = res.data;
-				if(response_data.response_code === 200){
+				if (response_data.response_code === 200) {
 					$rootScope.alerts.push({
 						'type': 'active',
 						'msg': response_data.message
 					});
 					$rootScope.alerts = [];
 					AuthenticationService.removeCredentials()
-					$state.go('home');
+					window.location = base_url;
 				}
-				
-			}, function(res){
-				$state.go('/');
+
+			}, function (res) {
+				window.location = base_url;
 			})
-			
+
 		}
-		
-	
-		vm.$onInit = function(){
-			console.log(vm.isuserauth)
-			vm.logout = logout;
-			
+
+
+		vm.$onInit = function () {
+			if(vm.userobj.isAuthenticated){
+				vm.logout = logout;
+				vm.isuserauth = vm.userobj.isAuthenticated;
+				vm.userinfo = vm.userobj.userinfo;
+			}
 		};
-		vm.$onChanges = function (changesObj) {	
-		};
+		vm.$onChanges = function (changesObj) {};
 		vm.$onDestroy = function () {};
 	}
 })();

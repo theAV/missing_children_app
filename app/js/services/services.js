@@ -1,6 +1,6 @@
 angular.module('MCWA').service('REST_API', REST_API);
 angular.module('MCWA').factory('AuthenticationService', AuthenticationService);
-angular.module('MCWA').factory('MyInterceptor', MyInterceptor);
+
 
 function REST_API($q, $http) {
 	return {
@@ -55,9 +55,9 @@ function REST_API($q, $http) {
 }
 
 
-AuthenticationService.$inject = ['$q', '$http', '$cookies', '$rootScope', 'REST_API'];
+AuthenticationService.$inject = ['$q', '$http', '$cookies', '$rootScope', 'REST_API', '$timeout', '$state'];
 
-function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
+function AuthenticationService($q, $http, $cookies, $rootScope, REST_API, $timeout, $state) {
 	var services = {};
 	services.SetCredentials = SetCredentials;
 	services.CheckLogInStatus = CheckLogInStatus;
@@ -94,28 +94,5 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API) {
 	function removeCredentials() {
 		$cookies.remove("globals");
 	}
+
 };
-
-function MyInterceptor() {
-	return {
-		request: function (config) {
-			//   console.log(config)
-			return config;
-		},
-
-		requestError: function (config) {
-			//   console.log(config)
-			return config;
-		},
-
-		response: function (res) {
-			//   console.log(res)
-			return res;
-		},
-
-		responseError: function (res) {
-			//   console.log(res)
-			return res;
-		}
-	}
-}
