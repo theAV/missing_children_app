@@ -1,5 +1,6 @@
 angular.module('MCWA').service('REST_API', REST_API);
 angular.module('MCWA').factory('AuthenticationService', AuthenticationService);
+angular.module('MCWA').service('fileUpload', fileUpload);
 
 
 function REST_API($q, $http) {
@@ -95,4 +96,20 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API, $timeo
 		$cookies.remove("globals");
 	}
 
+};
+
+
+fileUpload.$inject = ['$http'];
+
+function fileUpload($http) {
+	this.uploadFileToUrl = function (file, uploadUrl) {
+		var fd = new FormData();
+		fd.append('file', file);
+		$http.post(uploadUrl, fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined
+			}
+		}).then(function (res) {console.log(res)}, function (res) {console.log(res)});
+	}
 };

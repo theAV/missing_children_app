@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" data-ng-app="MCWA" data-version="{{appVersion}}" data-name="{{appName}}">
   <head>
@@ -25,6 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/oclazyload/1.1.0/ocLazyLoad.min.js"></script>
     <script src="<?php echo base_url(); ?>app/js/app.js"></script>
     <script src="<?php echo base_url(); ?>app/js/services/services.js"></script>
+    <script src="<?php echo base_url(); ?>app/js/directives/directive.js"></script>
     <script src="<?php echo base_url(); ?>app/js/common.controller.js"></script>
     <script src="<?php echo base_url(); ?>app/components/headerComponent/headerComponent.js"></script>
     <script src="<?php echo base_url(); ?>app/components/footerComponent/footerComponent.js"></script>
