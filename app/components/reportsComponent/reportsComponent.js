@@ -10,7 +10,7 @@
 			controller: ReportController,
 			controllerAs: 'vm',
 			bindings: {
-				userData: '<'
+				reportdata: '<'
 			}
 		});
 
@@ -20,7 +20,8 @@
 		var vm = this;
 		
 		vm.$onInit = function(){
-			
+			vm.reportsArr = vm.reportdata.data.reports;
+			vm.isCurrentIsOwner = $rootScope.creater;
 		};
 		vm.$onChanges = function (changesObj) {};
 		vm.$onDestroy = function () {};

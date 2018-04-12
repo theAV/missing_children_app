@@ -5,130 +5,137 @@
 			<h3 class="panel-title">{{vm.pageTitle}}</h3>
 		</div>
 		<div class="panel-body">
-			<form name="vm.ReportForm">
+			<form name="vm.ReportFormName">
 				<div class="row">
 					<div class="col-lg-3 form-group">
-						<label class="control-label">First Name</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.firstname">
+						<label class="control-label">First Name <sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control" required ng-model="vm.ReportForm.firstname">
 					</div>
 					<div class="col-lg-3 form-group">
-						<label class="control-label">Last Name</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.lastname">
+						<label class="control-label">Last Name <sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control" required ng-model="vm.ReportForm.lastname">
+					</div>
+					<div class="col-lg-3 form-group">
+						<label class="control-label">Age</label>
+						<select class="form-control" ng-model="vm.ReportForm.age" ng-options="age as age for age in vm.ageCriteria"></select>
 					</div>
 					<div class="col-lg-3 form-group">
 						<p class="control-label bold">Gender</p>
 						<label>
-							<input type="radio" value="1" name="gender" ng-model="vm.ReportForm.gender">&nbsp; Male
+							<input type="radio" value="male" name="gender" ng-model="vm.ReportForm.gender">&nbsp; Male
 						</label>&nbsp;&nbsp;
 						<label>
-							<input type="radio" value="2" name="gender" ng-model="vm.ReportForm.gender">&nbsp; Female
+							<input type="radio" value="female" name="gender" ng-model="vm.ReportForm.gender">&nbsp; Female
 						</label>
-					</div>
-					<div class="col-lg-3 form-group">
-						<label class="control-label">Age</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.age">
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Height</label>
+						<small class="text-muted" style="font-size: 12px;">in CM</small>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.height">
 					</div>
-					<div class="col-lg-3 form-group">
-						<label class="control-label">MIssing Date</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.missingdate">
+					<div class="col-lg-2 form-group">
+						<label class="control-label">Missing Date <sup class="text-danger">*</sup></label>
+						<input type="date" class="form-control" required ng-model="vm.ReportForm.missingdate" max="{{vm.maxDate}}">
 					</div>
-					<div class="col-lg-3 form-group">
-						<p class="control-label bold">Mentally Ill</p>
-						<label>
-							<input type="radio" value="1" checked="checked" name="mentallyIll" ng-model="vm.ReportForm.mentallyIll">&nbsp; Yes
-						</label>&nbsp;&nbsp;
-						<label>
-							<input type="radio" value="2" name="mentallyIll" ng-model="vm.ReportForm.mentallyIll">&nbsp; No
-						</label>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">Missing Location <sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control" required ng-model="vm.ReportForm.missinglocation">
 					</div>
-					<div class="col-lg-3 form-group">
-						<p class="control-label bold">Differently Abled</p>
-						<label>
-							<input type="radio" value="1" name="dif_abled" ng-model="vm.ReportForm.dif_abled">&nbsp; Yes
-						</label>&nbsp;&nbsp;
-						<label>
-							<input type="radio" value="2" name="dif_abled" ng-model="vm.ReportForm.dif_abled">&nbsp; No
-						</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-3 form-group">
+
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Hair Color</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.hairColor">
 					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Eye Color</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.eye_color">
 					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Complexion</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.complexion">
 					</div>
-					<div class="col-lg-3 form-group">
+				</div>
+				<div class="row">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Build</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.build">
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-3 form-group">
-						<p class="control-label bold">Spectacles</p>
-						<label>
-							<input type="radio" value="1" name="spectacles" ng-model="vm.ReportForm.spectacles">&nbsp; Yes
-						</label>&nbsp;&nbsp;
-						<label>
-							<input type="radio" value="2" name="spectacles" ng-model="vm.ReportForm.spectacles">&nbsp; No
-						</label>
-					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Top Wear</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.top_wear">
 					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Bottom Wear</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.bottom_wear">
 					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Foot Wear</label>
 						<input type="text" class="form-control" ng-model="vm.ReportForm.foot_wear">
 					</div>
+					<div class="col-lg-2 form-group">
+						<p class="control-label bold">Spectacles</p>
+						<label>
+							<input type="radio" value="yes" name="spectacles" ng-model="vm.ReportForm.spectacles">&nbsp; Yes
+						</label>&nbsp;&nbsp;
+						<label>
+							<input type="radio" value="no" name="spectacles" ng-model="vm.ReportForm.spectacles">&nbsp; No
+						</label>
+					</div>
+					<div class="col-lg-2 form-group">
+						<p class="control-label bold">Mentally Ill</p>
+						<label>
+							<input type="radio" value="yes" checked="checked" name="mentally_ill" ng-model="vm.ReportForm.mentally_ill">&nbsp; Yes
+						</label>&nbsp;&nbsp;
+						<label>
+							<input type="radio" value="no" name="mentally_ill" ng-model="vm.ReportForm.mentally_ill">&nbsp; No
+						</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-2 form-group">
+						<p class="control-label bold">Differently Abled</p>
+						<label>
+							<input type="radio" value="yes" name="dif_abled" ng-model="vm.ReportForm.dif_abled">&nbsp; Yes
+						</label>&nbsp;&nbsp;
+						<label>
+							<input type="radio" value="no" name="dif_abled" ng-model="vm.ReportForm.dif_abled">&nbsp; No
+						</label>
+					</div>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">Address<sup class="text-danger">*</sup></label>
+						<textarea class="form-control" required ng-model="vm.ReportForm.address"></textarea>
+					</div>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">State<sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control" required ng-model="vm.ReportForm.state">
+					</div>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">Pin<sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control"  ng-model="vm.ReportForm.pin" required="" ng-pattern="/^\d{6}$/" maxlength="6"
+						ng-minlength="6">
+					</div>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">FIR State <sup class="text-danger">*</sup></label>
+						<input type="text" class="form-control" required ng-model="vm.ReportForm.fir_state">
+					</div>
+					<div class="col-lg-2 form-group">
+						<label class="control-label">FIR Date <sup class="text-danger">*</sup></label>
+						<input type="date" class="form-control" required ng-model="vm.ReportForm.entry_date">
+					</div>
+
 				</div>
 				<div class="row">
-					<div class="col-lg-3 form-group">
-						<label class="control-label">Address</label>
-						<textarea class="form-control" ng-model="vm.ReportForm.address"></textarea>
-					</div>
-					<div class="col-lg-3 form-group">
-						<label class="control-label">State</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.state">
-					</div>
-					<div class="col-lg-3 form-group">
-						<label class="control-label">Pin</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.pin">
-					</div>
-					<div class="col-lg-3 form-group">
-						<label class="control-label">Fir State</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.fir_state">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-3 form-group">
-						<label class="control-label">Fir Date</label>
-						<input type="text" class="form-control" ng-model="vm.ReportForm.entry_date">
-					</div>
-					<div class="col-lg-3 form-group">
+					<div class="col-lg-2 form-group">
 						<label class="control-label">Descriptiion</label>
 						<textarea class="form-control" ng-model="vm.ReportForm.description"></textarea>
 					</div>
 					<div class="col-lg-3 form-group">
-						<label class="control-label">Photo</label>
+						<label class="control-label">Photo <sup class="text-danger">*</sup></label>
 						<input type="file" file-model="vm.photo" class="form-control">
-					</div>					
+					</div>
 					<img ng-if="vm.victimTempPhoto" ng-src="{{vm.victimTempPhoto}}" alt="" class="img-preview" style="width:100px;height:100px; float:left;">
 				</div>
 				<div class="row" style="margin-top:15px;">

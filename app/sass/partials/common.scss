@@ -505,7 +505,8 @@ footer {
     @include align-self(center);
     @include justify-content(center);
     @include flex-direction(column);
-
+    padding-top: 20px;
+    padding-bottom: 20px;
     position: relative;
     z-index: 2;
     height: 100%;

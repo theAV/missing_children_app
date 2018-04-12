@@ -67,7 +67,7 @@
                         );
                         $this->session->set_userdata($arraydata);
                         $dbData = $this->session->userdata()['userdata'];
-
+                        $userdata['usredata']['id'] = $dbData->id;
                         $userdata['usredata']['firstname'] = $dbData->firstname;
                         $userdata['usredata']['lastname'] = $dbData->lastname;
                         $userdata['usredata']['email'] = $dbData->email;

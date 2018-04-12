@@ -57,5 +57,6 @@ $route['register'] = 'user/store_users';
 $route['get_login'] = 'login/login_user';
 $route['get_logout'] = 'logout/get_user_logout';
 $route['submit_report'] = 'reports/submit_report';
+$route['get_report'] = 'reports/get_reports';
 $route['(:any)'] = 'home'; //this url passes a parameter
 $route['(:any)/(:any)'] = 'home'; //this one passes 2 parameters 

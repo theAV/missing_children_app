@@ -3,11 +3,11 @@
 	/**
 	 * MCWA - Missing Children Web App
 	 */
-	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize', 'ngMessages', 'ui.bootstrap', 'ngCookies']);
+	angular.module('MCWA', ['ui.router', 'oc.lazyLoad', 'ngSanitize', 'ngMessages', 'ui.bootstrap', 'ngCookies', 'ui.bootstrap']);
 
 	const path = base_url + 'app/partials/';
 	const component_path = base_url + 'app/components/';
-
+	const assets = base_url + 'app/assets/';
 	angular.module('MCWA').constant('Constantconfig', {
 		'urlpath': base_url,
 		'appName': 'Missing Children Web App',
@@ -140,7 +140,10 @@
 						}, function error(err) {
 							return err;
 						});
-					}]
+					}],
+					reportdata: function(REST_API){
+						return REST_API.XHRCallApi('GET','get_report');
+					}
 				}
 			})
 			.state('fir',{
@@ -184,6 +187,12 @@
 			$rootScope.alerts.splice(index, 1);
 		};
 		var isUserLogin = AuthenticationService.CheckLogInStatus();
+		if(isUserLogin){
+			var currentUser = JSON.parse($cookies.get('globals')).currentUser,
+					currentUserID = currentUser.userData.id;
+					$rootScope.creater = currentUserID;
+		}
+		
 		$transitions.onSuccess({}, function(transitions, toState) {
 			var state_data = $state.$current.data,
 				authRequire = state_data.isAuthRequired;

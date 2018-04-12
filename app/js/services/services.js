@@ -94,6 +94,7 @@ function AuthenticationService($q, $http, $cookies, $rootScope, REST_API, $timeo
 
 	function removeCredentials() {
 		$cookies.remove("globals");
+		console.log($cookies.getAll());
 	}
 
 };

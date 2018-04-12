@@ -31,14 +31,17 @@
 					$rootScope.alerts.push({
 						'type': 'active',
 						'msg': response_data.message
-					});
-					$rootScope.alerts = [];
-					AuthenticationService.removeCredentials()
+					});					
+					$rootScope.alerts = [];					
+					AuthenticationService.removeCredentials();
+					window.location = base_url;
+				}else{
+					AuthenticationService.removeCredentials();
 					window.location = base_url;
 				}
 
 			}, function (res) {
-				window.location = base_url;
+				console.log('Wnkown Error');
 			})
 
 		}

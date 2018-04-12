@@ -14,23 +14,23 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-3" ng-repeat="report in vm.reportsArr">
 			<div class="thumbnail">
-				<img src="app/assets/img/default.svg" style="width:100%" alt="...">
+				<img ng-src="uploads/missings/{{report.photo}}" style="width:100%" alt="">
 				<div class="caption">
-					<h4>Kamal</h4>
+					<h4 ng-bind="report.firstname+' '+ report.lastname"></h4>
 					<div class="row" style="margin-bottom:10px;">
 						<div class="col-sm-6">
 							<div class="small text-muted">Gender</div>
-							<p>Male</p>
+							<p ng-bind="report.gender">Male</p>
 						</div>
 						<div class="col-sm-6">
 							<div class="small text-muted">Age</div>
-							<p>14y 7m</p>
+							<p ng-bind="report.age">14y 7m</p>
 						</div>
 						<div class="col-sm-6">
 							<div class="small text-muted">Height</div>
-							<p>3 ' 2 "</p>
+							<p ng-bind="report.height">3 ' 2 "</p>
 						</div>
 						<div class="col-sm-6">
 							<div class="small text-muted">Missing/Sighted</div>
@@ -39,7 +39,8 @@
 					</div>
 					<p>
 						<a href="#" class="btn btn-primary" role="button">View</a>
-						<a href="#" class="btn btn-default" role="button">Request Contact</a>
+						<a href="#" class="btn btn-default" role="button" ng-if="report.submitedby !== vm.isCurrentIsOwner">Contact</a>
+						<a href="#" class="btn btn-default" ng-if="report.submitedby === vm.isCurrentIsOwner" role="button">Sighted</a>
 					</p>
 				</div>
 			</div>
