@@ -33,3 +33,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /app/.sass-cache
 /include
 /uploads
+/missingchilddb.sql

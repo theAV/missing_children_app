@@ -46,10 +46,11 @@
 				}).then(function (res) {
 					var response = res.data;
 					if (res.response_code === 200) {
-						$timeout(function () {
-							$state.go('reports');
-						}, 1500);
+						
 					}
+					$timeout(function () {
+						$state.go('reports');
+					}, 1500);
 					$rootScope.alerts.push({
 						'type': 'active',
 						'msg': response.message
